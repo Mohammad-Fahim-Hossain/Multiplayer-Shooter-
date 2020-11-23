@@ -9,10 +9,9 @@ public class PlayerShoot : MonoBehaviour {
 	Ray shootRay;
 	LineRenderer laserLine;
 	int shootableMask;
-	GameObject LaserBeamOrigin;
-	GameObject LaserBeamEnd;
+	
 	bool isShooting = false;
-	public Light spotLight;
+
 	public int damagePoints = 10;
 
 	public bool isEnabled = true;
@@ -22,24 +21,23 @@ public class PlayerShoot : MonoBehaviour {
 	public AudioClip laser3;
 	public AudioClip laser4;
 
-	AudioSource audio;
+	AudioSource audios;
 
 
 	// Use this for initialization
 	void Start () {
 		shootableMask = LayerMask.GetMask ("Enemies");
 		laserLine = GetComponentInChildren<LineRenderer> ();
-		LaserBeamOrigin = GameObject.FindGameObjectWithTag ("LaserBeamOrigin");
-		LaserBeamEnd = GameObject.FindGameObjectWithTag ("LaserBeamEnd");
-		spotLight.enabled = false;
+		
+
 		laserLine.enabled = false;
-		audio = GetComponent<AudioSource> ();
+		audios = GetComponent<AudioSource> ();
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		laserLine.SetPosition(0, LaserBeamOrigin.transform.position);
+
 
 		#if !MOBILE_INPUT
 		if (Input.GetButtonDown ("Fire1") && isShooting == false && isEnabled == true) {
@@ -57,14 +55,14 @@ public class PlayerShoot : MonoBehaviour {
 
 	public void Shoot(){
 		isShooting = true;
-		spotLight.enabled = true;
+		
 		laserLine.enabled = true;
 		//laserLine.SetPosition (0, transform.position); // todo: fix this to come out off the eyes
-		laserLine.SetPosition(0, LaserBeamOrigin.transform.position);
+		
 
 
 		//shootRay.origin = transform.position;
-		shootRay.origin = LaserBeamOrigin.transform.position;
+		
 		shootRay.direction = transform.forward;
 
 		if (Physics.Raycast (shootRay, out shootHit, 100.0f, shootableMask)) {
@@ -74,7 +72,7 @@ public class PlayerShoot : MonoBehaviour {
 				enemyHealth.TakeDamage (damagePoints, shootHit.point);
 			}
 		} else {
-			laserLine.SetPosition (1, LaserBeamEnd.transform.position);
+			//laserLine.SetPosition (1, LaserBeamEnd.transform.position);
 		}
 
 		Invoke ("StopShooting", 0.15f);
@@ -82,19 +80,19 @@ public class PlayerShoot : MonoBehaviour {
 		int randomNumber = Random.Range (1, 4);
 		switch (randomNumber) {
 		case 1:
-			audio.PlayOneShot (laser1);
+			audios.PlayOneShot (laser1);
 			break;
 
 		case 2:
-			audio.PlayOneShot (laser2);
+			audios.PlayOneShot (laser2);
 			break;
 
 		case 3:
-			audio.PlayOneShot (laser3);
+			audios.PlayOneShot (laser3);
 			break;
 
 		case 4:
-			audio.PlayOneShot (laser4);
+			audios.PlayOneShot (laser4);
 			break;
 			
 		}
@@ -104,7 +102,7 @@ public class PlayerShoot : MonoBehaviour {
 	void StopShooting(){
 		laserLine.enabled = false;
 		isShooting = false;
-		spotLight.enabled = false;
+		
 	}
 
 	public void DisableShooting(){
