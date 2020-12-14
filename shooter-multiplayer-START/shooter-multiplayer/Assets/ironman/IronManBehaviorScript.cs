@@ -9,7 +9,8 @@ public class IronManBehaviorScript : MonoBehaviour {
 	public float speed = 2.0f;
 	
 	PlayerHealth playerHealth;
-	
+
+    public Material[] materials;
 
 	Vector3 movement;
 	Rigidbody playerRigidBody;
@@ -33,7 +34,10 @@ public class IronManBehaviorScript : MonoBehaviour {
 
 		AdsSetup ();
 
-	}
+        InitializeCostume();
+
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -142,5 +146,12 @@ public class IronManBehaviorScript : MonoBehaviour {
 	void AdsSetup(){
 		//Advertisement.Initialize ("1041425", true);
 	}
+
+    void InitializeCostume()
+    {
+        int number = Random.Range(0, 1000) % materials.Length;
+
+        this.gameObject.GetComponent<Renderer>().material = materials[number] as Material;
+    }
 
 }
