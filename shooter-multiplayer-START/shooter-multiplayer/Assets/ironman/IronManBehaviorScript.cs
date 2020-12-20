@@ -3,8 +3,9 @@ using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Mirror;
 
-public class IronManBehaviorScript : MonoBehaviour {
+public class IronManBehaviorScript : NetworkBehaviour {
 
 	public float speed = 2.0f;
 	
@@ -65,15 +66,21 @@ public class IronManBehaviorScript : MonoBehaviour {
 		float h = CrossPlatformInputManager.GetAxisRaw("Horizontal");
 		float v = CrossPlatformInputManager.GetAxisRaw ("Vertical");
 
-		Move (h, v);
+        if (isLocalPlayer == true)
+        {
+            Move(h, v);
 
-		if (h != 0 || v != 0) {
-			isMoving = true;
-		} else {
-			isMoving = false;
-		}
-		Animating ();
-		Turning ();
+            if (h != 0 || v != 0)
+            {
+                isMoving = true;
+            }
+            else
+            {
+                isMoving = false;
+            }
+            Animating();
+            Turning();
+        }
 	}
 
 

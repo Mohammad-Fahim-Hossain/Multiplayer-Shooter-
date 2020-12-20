@@ -2,8 +2,9 @@
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 using DigitalRuby.PyroParticles;
+using Mirror;
 
-public class PlayerShoot : MonoBehaviour {
+public class PlayerShoot : NetworkBehaviour {
 
 
 	RaycastHit shootHit;
@@ -34,26 +35,27 @@ public class PlayerShoot : MonoBehaviour {
 
 	
 	}
-	
-	// Update is called once per frame
-	void Update () {
 
+    // Update is called once per frame
+    void Update() {
 
-		#if !MOBILE_INPUT
-		if (Input.GetButtonDown ("Fire1") && isShooting == false && isEnabled == true) {
-			Shoot ();
-			
-		} 
-		#else
+        if (!isLocalPlayer)
+            return;
+#if !MOBILE_INPUT
+        if (Input.GetButtonDown("Fire1") && isShooting == false && isEnabled == true) {
+            CmdShoot();
+
+        }
+#else
 		if(CrossPlatformInputManager.GetAxisRaw("Mouse X") != 0 || CrossPlatformInputManager.GetAxisRaw("Mouse Y") != 0){
-			Shoot();
+			CmdShoot();
 		}
-		#endif
-	
-	}
+#endif
 
+    }
 
-	public void Shoot(){
+    [Command]
+	public void CmdShoot(){
 		isShooting = true;
 
         SpawnProjectile();
@@ -86,5 +88,7 @@ public class PlayerShoot : MonoBehaviour {
         CurrentPreFabOject = GameObject.Instantiate(SelectedProjectilePreFab);
         CurrentPreFabOject.transform.position = ProjectileSpawnPoint.transform.position;
         CurrentPreFabOject.transform.rotation = ProjectileSpawnPoint.transform.rotation;
+
+        NetworkServer.Spawn(CurrentPreFabOject);
     }
 }

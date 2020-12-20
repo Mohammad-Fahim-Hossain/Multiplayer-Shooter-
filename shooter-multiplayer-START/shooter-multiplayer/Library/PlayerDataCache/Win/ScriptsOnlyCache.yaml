@@ -152,10 +152,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14422}
     - Class: 114
       Script: {instanceID: 14528}
-    - Class: 114
-      Script: {instanceID: 14544}
-    - Class: 114
-      Script: {instanceID: 14546}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 124
@@ -479,7 +475,7 @@ ScriptsOnlyBuild:
     className: PhysicsRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 12db14b3a6817f664459fd0bd76baaad
+      Hash: 4fc5c7fd17334e279f1ab5ceb6ea6df4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerShoot
@@ -587,7 +583,7 @@ ScriptsOnlyBuild:
     className: Player
   - hash:
       serializedVersion: 2
-      Hash: 2b2d8fa183a57cf31d79f1771ec1f2cb
+      Hash: 0e6bb60706d46ce2b07500b98cba436c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: IronManBehaviorScript
