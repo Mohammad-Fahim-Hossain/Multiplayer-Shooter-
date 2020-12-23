@@ -88,6 +88,9 @@ public class PlayerShoot : NetworkBehaviour {
         CurrentPreFabOject = GameObject.Instantiate(SelectedProjectilePreFab);
         CurrentPreFabOject.transform.position = ProjectileSpawnPoint.transform.position;
         CurrentPreFabOject.transform.rotation = ProjectileSpawnPoint.transform.rotation;
+       
+        
+        CurrentPreFabOject.GetComponent<FireProjectileScript>().OwnerName = transform.name;
 
         NetworkServer.Spawn(CurrentPreFabOject);
     }

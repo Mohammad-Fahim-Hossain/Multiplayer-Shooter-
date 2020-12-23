@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Mirror;
 
 namespace DigitalRuby.PyroParticles
 {
@@ -17,7 +18,7 @@ namespace DigitalRuby.PyroParticles
         public float Maximum;
     }
 
-    public class FireBaseScript : MonoBehaviour
+    public class FireBaseScript : NetworkBehaviour
     {
 		[Tooltip("Damage dealt on collision")]
 		public float Damage = 50.0f;

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Mirror;
 
 namespace DigitalRuby.PyroParticles
 {
@@ -15,6 +16,8 @@ namespace DigitalRuby.PyroParticles
     /// </summary>
     public class FireProjectileScript : FireBaseScript, ICollisionHandler
     {
+        public string OwnerName;
+
         [Tooltip("The collider object to use for collision and physics.")]
         public GameObject ProjectileColliderObject;
 
@@ -62,7 +65,7 @@ namespace DigitalRuby.PyroParticles
         protected override void Start()
         {
             base.Start();
-
+            
             StartCoroutine(SendCollisionAfterDelay());
         }
 
@@ -110,9 +113,39 @@ namespace DigitalRuby.PyroParticles
 			}
 
 			PlayerHealth playerHealth = c.gameObject.GetComponent<PlayerHealth> ();
-			if (playerHealth != null) {
-				playerHealth.TakeDamage (100);
-			}
+
+            
+            if (playerHealth != null) {
+                
+                GameObject Player = playerHealth.gameObject;
+             
+
+
+                
+
+                if (Player.GetComponent<PlayerId>().PlayerUniqueName != this.OwnerName)
+                {
+
+                    playerHealth.TakeDamage(20);
+
+                    CmdTellSeverWhoGotShot(Player.GetComponent<PlayerId>().PlayerUniqueName, 20);
+
+                }
+            }
         }
+
+       [Command]
+        public void CmdTellSeverWhoGotShot(string name, int damage)
+        {
+            GameObject obj = GameObject.Find(name);
+          
+            obj.GetComponent<PlayerHealth>().TakeDamage(damage);
+
+            
+            Debug.Log("Current Health: "+obj.GetComponent<PlayerHealth>().currentHealth.ToString());
+            
+        }
+        
+
     }
 }

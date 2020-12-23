@@ -9,12 +9,14 @@ ScriptsOnlyBuild:
     - CarDriveLeftSideScript
     - CarDriveRightSideScript
     - CarPassingBy
+    - DigitalRuby.PyroParticles.FireBaseScript
     - DigitalRuby.PyroParticles.FireCollisionForwardScript
     - DigitalRuby.PyroParticles.FireLightScript
     - DigitalRuby.PyroParticles.FireProjectileScript
     - EnemyAttack
     - EnemyHealth
     - EnemyMovement
+    - HealthBar
     - HonkScript
     - IronManBehaviorScript
     - PlayerHealth
@@ -23,6 +25,7 @@ ScriptsOnlyBuild:
     - SpawnEnemyScript
     - VehicleCollision
     Mirror.Components.dll:
+    - Mirror.Experimental.NetworkRigidbody
     - Mirror.NetworkAnimator
     - Mirror.NetworkTransform
     Mirror.dll:
@@ -135,6 +138,10 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12776}
     - Class: 114
+      Script: {instanceID: 12856}
+    - Class: 114
+      Script: {instanceID: 12898}
+    - Class: 114
       Script: {instanceID: 12988}
     - Class: 114
       Script: {instanceID: 13128}
@@ -155,13 +162,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14198}
     - Class: 114
-      Script: {instanceID: 14356}
+      Script: {instanceID: 14280}
     - Class: 114
-      Script: {instanceID: 14422}
+      Script: {instanceID: 14358}
     - Class: 114
-      Script: {instanceID: 14528}
+      Script: {instanceID: 14424}
     - Class: 114
-      Script: {instanceID: 111236}
+      Script: {instanceID: 14530}
+    - Class: 114
+      Script: {instanceID: 352706}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 124
@@ -185,6 +194,8 @@ ScriptsOnlyBuild:
     - Class: 199
       Script: {instanceID: 0}
     - Class: 208
+      Script: {instanceID: 0}
+    - Class: 212
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
@@ -281,7 +292,7 @@ ScriptsOnlyBuild:
     className: CarDriveLeftSideScript
   - hash:
       serializedVersion: 2
-      Hash: ece0ab285c137247140bdc6bbb1b6d1b
+      Hash: a54834e879deb27f280733807666011f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerHealth
@@ -503,7 +514,7 @@ ScriptsOnlyBuild:
     className: AnimationTrack
   - hash:
       serializedVersion: 2
-      Hash: 8d6f840cc042a527f73649598f98255d
+      Hash: 5b6e9ae3834506b72f4a7c15b5fe6d9e
     assemblyName: Assembly-CSharp.dll
     namespaceName: DigitalRuby.PyroParticles
     className: FireProjectileScript
@@ -689,7 +700,7 @@ ScriptsOnlyBuild:
     className: NetworkRigidbody
   - hash:
       serializedVersion: 2
-      Hash: 1c70635f8f6a4a1be842539a9b101d51
+      Hash: afe13cce7299a69a6f049135fc3b7cab
     assemblyName: Assembly-CSharp.dll
     namespaceName: DigitalRuby.PyroParticles
     className: FireBaseScript
@@ -1163,6 +1174,12 @@ ScriptsOnlyBuild:
     className: TMP_ColorGradient
   - hash:
       serializedVersion: 2
+      Hash: 1c07aa3a2713d3427501613b1bca3ceb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerId
+  - hash:
+      serializedVersion: 2
       Hash: 33c6014cf5876cd3034b3e043889dd98
     assemblyName: Mirror.Components.dll
     namespaceName: Mirror.Discovery
@@ -1193,7 +1210,7 @@ ScriptsOnlyBuild:
     className: NetworkTransformChild
   - hash:
       serializedVersion: 2
-      Hash: 1c70635f8f6a4a1be842539a9b101d51
+      Hash: afe13cce7299a69a6f049135fc3b7cab
     assemblyName: Assembly-CSharp.dll
     namespaceName: DigitalRuby.PyroParticles
     className: FireConstantBaseScript
@@ -1307,10 +1324,10 @@ ScriptsOnlyBuild:
     className: KcpTransport
   - hash:
       serializedVersion: 2
-      Hash: 1c07aa3a2713d3427501613b1bca3ceb
+      Hash: d82b80f2aaa36c5df1e02c3f3262fb5b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: PlayerId
+    className: HealthBar
   platform: 5
   scenePathNames:
   - Assets/scene-ironman.unity

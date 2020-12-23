@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using Mirror;
 
-public class PlayerHealth : MonoBehaviour {
+public class PlayerHealth : NetworkBehaviour {
 
 	public int startingHealth = 100;
-	public int currentHealth = 100;
+    [SyncVar]
+    public int currentHealth = 100;
+
+    public Text HealtText;
 
 
 	float shakingTimer = 0;
@@ -20,13 +24,16 @@ public class PlayerHealth : MonoBehaviour {
 	void Start () {
 		currentHealth = startingHealth;
 		anim = GetComponent<Animator> ();
+
+        HealtText = GameObject.Find("HPtext").GetComponent<Text>();
 		
 	}
 
 	// Update is called once per frame
 	void Update () {
-		//healthText.text = "HP: " + currentHealth.ToString ();
-		
+        //healthText.text = "HP: " + currentHealth.ToString ();
+
+        UpdateHP();
 
 		if (isShaking == true && shakingTimer < timeToShake) {
 			shakingTimer += Time.deltaTime;
@@ -69,5 +76,14 @@ public class PlayerHealth : MonoBehaviour {
 		isShaking = true;
 		
 	}
-		
+
+    void UpdateHP()
+    {
+        if (isLocalPlayer)
+        {
+            HealtText.text =  currentHealth.ToString();
+        }
+    }
+
+
 }
