@@ -18,9 +18,13 @@ ScriptsOnlyBuild:
     - HonkScript
     - IronManBehaviorScript
     - PlayerHealth
+    - PlayerId
     - PlayerShoot
     - SpawnEnemyScript
     - VehicleCollision
+    Mirror.Components.dll:
+    - Mirror.NetworkAnimator
+    - Mirror.NetworkTransform
     Mirror.dll:
     - Mirror.NetworkIdentity
     - Mirror.NetworkManager
@@ -135,6 +139,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13128}
     - Class: 114
+      Script: {instanceID: 13318}
+    - Class: 114
       Script: {instanceID: 13356}
     - Class: 114
       Script: {instanceID: 13902}
@@ -145,6 +151,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14116}
     - Class: 114
+      Script: {instanceID: 14178}
+    - Class: 114
       Script: {instanceID: 14198}
     - Class: 114
       Script: {instanceID: 14356}
@@ -152,6 +160,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14422}
     - Class: 114
       Script: {instanceID: 14528}
+    - Class: 114
+      Script: {instanceID: 111236}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 124
@@ -1295,6 +1305,12 @@ ScriptsOnlyBuild:
     assemblyName: Mirror.dll
     namespaceName: kcp2k
     className: KcpTransport
+  - hash:
+      serializedVersion: 2
+      Hash: 1c07aa3a2713d3427501613b1bca3ceb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerId
   platform: 5
   scenePathNames:
   - Assets/scene-ironman.unity
