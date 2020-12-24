@@ -25,12 +25,14 @@ public class PlayerShoot : NetworkBehaviour {
     FireBaseScript CurrentPreFabScript;
     public GameObject ProjectileSpawnPoint;
 
+    public PlayerHealth HealthScript;
+
 
 	// Use this for initialization
 	void Start () {
-		
-		
 
+
+        HealthScript = this.gameObject.GetComponent<PlayerHealth>();
         IntiallizeProjectile();
 
 	
@@ -43,8 +45,13 @@ public class PlayerShoot : NetworkBehaviour {
             return;
 #if !MOBILE_INPUT
         if (Input.GetButtonDown("Fire1") && isShooting == false && isEnabled == true) {
-            CmdShoot();
 
+            if (HealthScript.currentHealth <= 0)
+            {
+                return;
+            }   
+                CmdShoot();
+            
         }
 #else
 		if(CrossPlatformInputManager.GetAxisRaw("Mouse X") != 0 || CrossPlatformInputManager.GetAxisRaw("Mouse Y") != 0){
@@ -56,6 +63,8 @@ public class PlayerShoot : NetworkBehaviour {
 
     [Command]
 	public void CmdShoot(){
+
+        
 		isShooting = true;
 
         SpawnProjectile();

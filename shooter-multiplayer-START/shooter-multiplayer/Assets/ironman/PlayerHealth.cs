@@ -17,7 +17,7 @@ public class PlayerHealth : NetworkBehaviour {
 	public float shakeIntensity = 3.0f;
 	bool isShaking = false;
 
-	bool isDead = false;
+	public bool isDead = false;
 	Animator anim;
 
 	// Use this for initialization
@@ -45,19 +45,30 @@ public class PlayerHealth : NetworkBehaviour {
 			}
 		}
 
-	}
+        if (!isDead)
+        {
+            if (currentHealth <= 0)
+            {
+                Death();
+            }
+        }
+
+    }
 
 
 	public void TakeDamage(int amount){
-		if (isDead)
+        if (!isServer)
+        {
+            return;
+        }
+
+        if (isDead)
 			return;
 
-		ShakeCamera ();
+		//ShakeCamera ();
 
 		currentHealth -= amount;
-		if (currentHealth <= 0) {
-			Death ();
-		}
+		
 	}
 
 	public void Death(){
@@ -81,7 +92,7 @@ public class PlayerHealth : NetworkBehaviour {
     {
         if (isLocalPlayer)
         {
-            HealtText.text =  currentHealth.ToString();
+            HealtText.text = " HP: " + currentHealth.ToString();
         }
     }
 
