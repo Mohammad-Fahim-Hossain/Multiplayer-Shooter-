@@ -43,7 +43,7 @@ public class IronManBehaviorScript : NetworkBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (playerHealth.currentHealth <= 0) {
-			isEnabled = false;
+			
 			if (!gameOver) {
 				Invoke ("DisplayGameOver", 1.0f);
 			}
@@ -60,28 +60,32 @@ public class IronManBehaviorScript : NetworkBehaviour {
 	}
 
 	void FixedUpdate (){
-		if (isEnabled == false)
-			return;
+
+        if (isLocalPlayer)
+            return;
+        if (GetComponent<PlayerHealth>().currentHealth <= 0)
+            return;
+
 		// we need to get a hold of which keys (input) has been used by the Player
 		float h = CrossPlatformInputManager.GetAxisRaw("Horizontal");
 		float v = CrossPlatformInputManager.GetAxisRaw ("Vertical");
 
-        if (isLocalPlayer == true)
-        {
-            Move(h, v);
+        
 
-            if (h != 0 || v != 0)
-            {
-                isMoving = true;
-            }
-            else
-            {
-                isMoving = false;
-            }
-            Animating();
-            Turning();
+        Move(h, v);
+
+        if (h != 0 || v != 0)
+        {
+            isMoving = true;
         }
-	}
+        else
+        {
+            isMoving = false;
+        }
+        Animating();
+        Turning();
+
+    }
 
 
 	void Move( float h, float v){
@@ -134,9 +138,6 @@ public class IronManBehaviorScript : NetworkBehaviour {
 	}
 
 
-	public void DisableMovement(){
-		isEnabled = false;
-	}
 
 	public void RestartGame(){
 		SceneManager.LoadScene ("scene-ironman");

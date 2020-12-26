@@ -46,10 +46,7 @@ public class PlayerShoot : NetworkBehaviour {
 #if !MOBILE_INPUT
         if (Input.GetButtonDown("Fire1") && isShooting == false && isEnabled == true) {
 
-            if (HealthScript.currentHealth <= 0)
-            {
-                return;
-            }   
+           
                 CmdShoot();
             
         }
@@ -64,6 +61,10 @@ public class PlayerShoot : NetworkBehaviour {
     [Command]
 	public void CmdShoot(){
 
+        if (HealthScript.currentHealth <= 0)
+        {
+            return;
+        }
         
 		isShooting = true;
 

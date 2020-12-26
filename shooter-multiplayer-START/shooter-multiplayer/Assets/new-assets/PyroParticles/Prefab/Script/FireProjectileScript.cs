@@ -17,6 +17,9 @@ namespace DigitalRuby.PyroParticles
     public class FireProjectileScript : FireBaseScript, ICollisionHandler
     {
         public string OwnerName;
+        public PlayerHealth playerHealth;
+        public GameObject Player;
+        public FireProjectileScript FireProj;
 
         [Tooltip("The collider object to use for collision and physics.")]
         public GameObject ProjectileColliderObject;
@@ -65,6 +68,11 @@ namespace DigitalRuby.PyroParticles
         protected override void Start()
         {
             base.Start();
+
+            if(this.FireProj==null)
+            {
+                FireProj = this;
+            }
             
             StartCoroutine(SendCollisionAfterDelay());
         }
@@ -112,12 +120,12 @@ namespace DigitalRuby.PyroParticles
 				enemyHealth.TakeDamage (100, c.transform.position);
 			}
 
-			PlayerHealth playerHealth = c.gameObject.GetComponent<PlayerHealth> ();
+			playerHealth = c.gameObject.GetComponent<PlayerHealth> ();
 
             
             if (playerHealth != null) {
                 
-                GameObject Player = playerHealth.gameObject;
+                 Player = playerHealth.gameObject;
              
 
 

@@ -35,20 +35,13 @@ public class PlayerHealth : NetworkBehaviour {
 
         UpdateHP();
 
-		if (isShaking == true && shakingTimer < timeToShake) {
-			shakingTimer += Time.deltaTime;
-			float x = Mathf.PerlinNoise (Camera.main.transform.position.x, Camera.main.transform.position.y);
-			Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x + x * shakeIntensity, Camera.main.transform.position.y, Camera.main.transform.position.z);
-
-			if (shakingTimer > timeToShake) {
-				isShaking = false;
-			}
-		}
+		
 
         if (!isDead)
         {
             if (currentHealth <= 0)
             {
+                currentHealth = 0;
                 Death();
             }
         }
@@ -65,7 +58,7 @@ public class PlayerHealth : NetworkBehaviour {
         if (isDead)
 			return;
 
-		//ShakeCamera ();
+	
 
 		currentHealth -= amount;
 		
@@ -74,19 +67,35 @@ public class PlayerHealth : NetworkBehaviour {
 	public void Death(){
 		if (isDead)
 			return;
-			
-		anim.SetTrigger ("Death");
-		//agent.enabled = false;
-		isDead = true;
-		currentHealth = 0;
-		//Destroy (gameObject, 2.5f);
-	}
 
-	void ShakeCamera(){
-		shakingTimer = 0;
-		isShaking = true;
-		
-	}
+        //anim.SetTrigger ("Death");
+        //agent.enabled = false;
+        //isDead = true;
+        //currentHealth = 0;
+        //Destroy (gameObject, 2.5f);
+
+        if (isServer)
+        {
+            RpcDead();
+        }
+        else
+        {
+            anim.SetTrigger ("Death");
+          
+            isDead = true;
+        }
+    }
+
+    [ClientRpc]
+    public void RpcDead()
+    {
+        if (isDead)
+            return;
+        anim.SetTrigger("Death");
+        isDead = true;
+        currentHealth = 0;
+    }
+
 
     void UpdateHP()
     {

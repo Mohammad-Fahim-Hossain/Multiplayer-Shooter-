@@ -51,7 +51,7 @@ public class EnemyAttack : MonoBehaviour {
 			//anim.SetTrigger ("idle");
 			agent.enabled = false;
 			playerShoot.DisableShooting ();
-			playerMovement.DisableMovement ();
+		
 		}
 
 	
