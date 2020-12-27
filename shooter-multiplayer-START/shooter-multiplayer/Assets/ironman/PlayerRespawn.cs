@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Mirror;
 
 public class PlayerRespawn : NetworkBehaviour
 {
     public bool isRespawn = false;
+
+    public int CountDownStartingValue = 9;
+    private int CountDownCurrentValue;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +22,19 @@ public class PlayerRespawn : NetworkBehaviour
     {
         if(this.gameObject.GetComponent<PlayerHealth>().currentHealth<=0 && !isRespawn)
         {
-            Invoke("RpcReSpawn", 2.5f);
+            isRespawn = true;
+
+            Invoke("RpcReSpawn", 9.0f);
+            if (isLocalPlayer)
+            {
+               
+                GameObject textRespawnObj = GameObject.Find("RespawnText");
+               Text RespawnText = textRespawnObj.GetComponent<Text>();
+                CountDownCurrentValue = CountDownStartingValue;
+                 InvokeRepeating("UpdateRespawnText", 1.0f, 1.0f);
+
+               RespawnText.text = CountDownCurrentValue.ToString();
+            }
         }
         
     }
@@ -35,7 +51,21 @@ public class PlayerRespawn : NetworkBehaviour
 
         GetComponent<Animator>().Play("IdleWalk");
 
-        isRespawn = true;
+        //isRespawn = true;
+    }
+
+    void UpdateRespawnText()
+    {
+        GameObject textRespawnObj = GameObject.Find("RespawnText");
+        Text RespawnText = textRespawnObj.GetComponent<Text>();
+        CountDownCurrentValue--;
+        RespawnText.text = CountDownCurrentValue.ToString();
+        print(CountDownCurrentValue.ToString());
+        if (CountDownCurrentValue <= 0)
+        {
+            CancelInvoke("UpdateRespawnText");
+            RespawnText.text = "";
+        }
     }
 
 }

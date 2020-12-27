@@ -19,7 +19,7 @@ public class IronManBehaviorScript : NetworkBehaviour {
 	Animator anim;
 	int floorMask;
 	float camRayLength = 100.0f;
-	public bool isEnabled = true;
+	
 	public bool gameOver = false;
 
 	public AudioClip gameOverClip;
@@ -61,7 +61,7 @@ public class IronManBehaviorScript : NetworkBehaviour {
 
 	void FixedUpdate (){
 
-        if (isLocalPlayer)
+        if (!isLocalPlayer)
             return;
         if (GetComponent<PlayerHealth>().currentHealth <= 0)
             return;
