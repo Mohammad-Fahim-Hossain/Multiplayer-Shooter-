@@ -123,7 +123,7 @@ namespace DigitalRuby.PyroParticles
 			playerHealth = c.gameObject.GetComponent<PlayerHealth> ();
 
             
-            if (playerHealth != null) {
+            if (playerHealth != null&&playerHealth.currentHealth>=0) {
                 
                  Player = playerHealth.gameObject;
              
@@ -133,13 +133,26 @@ namespace DigitalRuby.PyroParticles
 
                 if (Player.GetComponent<PlayerId>().PlayerUniqueName != this.OwnerName)
                 {
-
+                    
                     playerHealth.TakeDamage(20);
+
+                    if (playerHealth.currentHealth <= 0)
+                    {
+                        IncScore(OwnerName);
+                    }
 
                     CmdTellSeverWhoGotShot(Player.GetComponent<PlayerId>().PlayerUniqueName, 20);
 
+
                 }
             }
+        }
+
+        public void IncScore(string Name)
+        {
+
+            GameObject IncObj = GameObject.Find(name);
+            IncObj.GetComponent<KillScore>().Socre++;
         }
 
        [Command]
